@@ -1,6 +1,6 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/database";
-import User from "./User";
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const User = require("./User");
 
 const Content = sequelize.define(
   "Content",
@@ -41,7 +41,8 @@ const Content = sequelize.define(
   }
 );
 
+// Define associations
 Content.belongsTo(User, { foreignKey: "userId" });
-User.hasMany(Content, { foreignKey: "userId" });
+User.hasMany(Content, { foreignKey: "userId", as: "contents" });
 
-export default Content;
+module.exports = Content;
