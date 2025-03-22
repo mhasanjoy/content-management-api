@@ -9,7 +9,7 @@ const getAllUsers = async (_req, res) => {
     res.status(200).json({ success: true, data: users });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: "Failed to fetch users" });
+    res.status(500).json({ success: false, message: "Failed to fetch users" });
   }
 };
 
@@ -27,16 +27,15 @@ const getUserProfileForLoggedInUser = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
+      return;
     }
 
     res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error);
     res
-      .status(400)
+      .status(500)
       .json({ success: false, message: "Failed to fetch profile" });
   }
 };
@@ -55,16 +54,15 @@ const getUserProfileForPublic = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      res.status(404).json({ success: false, message: "User not found" });
+      return;
     }
 
     res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error);
     res
-      .status(400)
+      .status(500)
       .json({ success: false, message: "Failed to fetch profile" });
   }
 };
@@ -91,7 +89,7 @@ const updateUserProfile = async (req, res) => {
     res.status(200).json({ success: true, message: "Profile updated" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: "Update failed" });
+    res.status(500).json({ success: false, message: "Update failed" });
   }
 };
 

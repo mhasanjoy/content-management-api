@@ -32,7 +32,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: "Registration failed" });
+    res.status(500).json({ success: false, message: "Registration failed" });
   }
 };
 
@@ -71,7 +71,7 @@ const login = async (req, res) => {
     res.status(200).json({ success: true, accessToken, refreshToken });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: "Login failed" });
+    res.status(500).json({ success: false, message: "Login failed" });
   }
 };
 

@@ -19,7 +19,7 @@ const createContent = async (req, res) => {
   } catch (error) {
     console.log(error);
     res
-      .status(400)
+      .status(500)
       .json({ success: false, message: "Content creation failed" });
   }
 };
@@ -32,14 +32,14 @@ const updateContent = async (req, res) => {
     const content = await Content.findByPk(contentId);
 
     if (!content) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Content not found" });
+      res.status(404).json({ success: false, message: "Content not found" });
+      return;
     }
 
     // check if the logged-in user is the owner of the content
     if (content.userId !== req.user.id) {
-      return res.status(403).json({ success: false, message: "Access denied" });
+      res.status(403).json({ success: false, message: "Access denied" });
+      return;
     }
 
     // update the content
@@ -58,7 +58,7 @@ const updateContent = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: "Content update failed" });
+    res.status(500).json({ success: false, message: "Content update failed" });
   }
 };
 
@@ -69,9 +69,8 @@ const deleteContent = async (req, res) => {
     const content = await Content.findByPk(contentId);
 
     if (!content) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Content not found" });
+      res.status(404).json({ success: false, message: "Content not found" });
+      return;
     }
 
     // check if the logged-in user is the owner of the content
@@ -89,7 +88,7 @@ const deleteContent = async (req, res) => {
   } catch (error) {
     console.log(error);
     res
-      .status(400)
+      .status(500)
       .json({ success: false, message: "Content deletion failed" });
   }
 };
