@@ -86,7 +86,9 @@ const updateUserProfile = async (req, res) => {
     // update the user's profile with name, email (if updated) and bio
     await User.update({ name, email, bio }, { where: { id: req.user.id } });
 
-    res.status(200).json({ success: true, message: "Profile updated" });
+    res
+      .status(200)
+      .json({ success: true, message: "Profile updated successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Update failed" });

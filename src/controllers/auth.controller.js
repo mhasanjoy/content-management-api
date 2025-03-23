@@ -58,62 +58,19 @@ const login = async (req, res) => {
     const accessToken = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "7d" }
     );
 
-    // generate refresh token
-    const refreshToken = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: "30d" }
-    );
-
-    res.status(200).json({ success: true, accessToken, refreshToken });
+    res.status(200).json({
+      success: true,
+      data: accessToken,
+      message: "User login successful",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Login failed" });
   }
 };
 
-const refreshAccessToken = async (req, res) => {
-  try {
-    const { refreshToken } = req.body;
-
-    if (!refreshToken) {
-      res
-        .status(401)
-        .json({ success: false, message: "Refresh token required" });
-      return;
-    }
-
-    // verify the refresh token
-    const decoded = await new Promise((resolve, reject) => {
-      jwt.verify(
-        refreshToken,
-        process.env.JWT_REFRESH_SECRET,
-        (err, decoded) => {
-          if (err) reject(new Error("Invalid refresh token"));
-          resolve(decoded);
-        }
-      );
-    });
-
-    // create a new access token
-    const newAccessToken = jwt.sign(
-      { id: decoded.id, email: decoded.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "15m" }
-    );
-
-    res.status(200).json({ success: true, accessToken: newAccessToken });
-  } catch (error) {
-    console.log(error);
-    res.status(403).json({
-      success: false,
-      message: error.message || "Something went wrong",
-    });
-  }
-};
-
 // export the functions
-module.exports = { register, login, refreshAccessToken };
+module.exports = { register, login };

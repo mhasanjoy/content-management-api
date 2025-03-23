@@ -30,11 +30,4 @@ const loginSchema = Joi.object({
   }),
 });
 
-const refreshTokenSchema = Joi.object({
-  refreshToken: Joi.string().required().messages({
-    "string.empty": `"RefreshToken" cannot be an empty field`,
-    "any.required": `"RefreshToken" is a required field`,
-  }),
-});
-
-module.exports = { userRegisterSchema, loginSchema, refreshTokenSchema };
+module.exports = { userRegisterSchema, loginSchema };

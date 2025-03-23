@@ -67,7 +67,6 @@ const deleteContent = async (req, res) => {
     const contentId = req.params.id;
 
     const content = await Content.findByPk(contentId);
-
     if (!content) {
       res.status(404).json({ success: false, message: "Content not found" });
       return;

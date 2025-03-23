@@ -2,7 +2,7 @@
 
 ## Authentication
 
-This section provides the details of the Authentication API for user registration, login and token refresh functionality.
+This section provides the details of the Authentication API for user registration and login functionality.
 
 ## **Routes**
 
@@ -36,20 +36,11 @@ This section provides the details of the Authentication API for user registratio
 }
 ```
 
-#### Response (Error - 500 Internal Server Error):
-
-```json
-{
-  "success": false,
-  "message": "User registration failed"
-}
-```
-
 ### 2. **User Login**
 
 - **Route**: `/api/auth/login`
 - **Method**: `POST`
-- **Description**: Logs in an existing user and returns JWT tokens.
+- **Description**: Logs in an existing user and returns JWT access token.
 
 #### Request Body:
 
@@ -65,55 +56,10 @@ This section provides the details of the Authentication API for user registratio
 ```json
 {
   "success": true,
-  "message": "Login successful",
+  "message": "User login successful",
   "data": {
-    "accessToken": "your-access-token",
-    "refreshToken": "your-refresh-token"
+    "accessToken": "your-access-token"
   }
-}
-```
-
-#### Response (Error - 401 Unauthorized):
-
-```json
-{
-  "success": false,
-  "message": "Invalid credentials"
-}
-```
-
-### 3. **Token Refresh**
-
-- **Route**: `/api/auth/refresh-token`
-- **Method**: `POST`
-- **Description**: Refreshes the JWT token using the refresh token provided.
-
-#### Request Body:
-
-```json
-{
-  "refreshToken": "your-refresh-token"
-}
-```
-
-#### Response (Success - 201 Created):
-
-```json
-{
-  "success": true,
-  "message": "Token refreshed",
-  "data": {
-    "accessToken": "new-access-token"
-  }
-}
-```
-
-#### Response (Error - 403 Forbidden):
-
-```json
-{
-  "success": false,
-  "message": "Invalid or expired refresh token"
 }
 ```
 
@@ -153,15 +99,6 @@ This section provides the details of the User API for fetching user profiles and
 }
 ```
 
-#### Response (Error - 500 Internal Server Error):
-
-```json
-{
-  "success": false,
-  "message": "Failed to fetch users"
-}
-```
-
 ### 2. **Get User Profile (Logged-in User)**
 
 - **Route**: `/api/users/profile`
@@ -196,15 +133,6 @@ This section provides the details of the User API for fetching user profiles and
 }
 ```
 
-#### Response (Error - 401 Unauthorized):
-
-```json
-{
-  "success": false,
-  "message": "Authorization required"
-}
-```
-
 ### 3. **Get User Profile (Public User)**
 
 - **Route**: `/api/users/:id`
@@ -233,15 +161,6 @@ This section provides the details of the User API for fetching user profiles and
 }
 ```
 
-#### Response (Error - 404 Not Found):
-
-```json
-{
-  "success": false,
-  "message": "User not found"
-}
-```
-
 ### 4. **Update User Profile**
 
 - **Route**: `/api/users/profile`
@@ -264,15 +183,6 @@ This section provides the details of the User API for fetching user profiles and
 {
   "success": true,
   "message": "Profile updated successfully"
-}
-```
-
-#### Response (Error - 403 Forbidden):
-
-```json
-{
-  "success": false,
-  "message": "Access denied"
 }
 ```
 
@@ -316,15 +226,6 @@ This section provides the details of the Content API for creating, updating and 
 }
 ```
 
-#### Response (Error - 500 Internal Server Error):
-
-```json
-{
-  "success": false,
-  "message": "Content creation failed"
-}
-```
-
 ### 2. **Update Content**
 
 - **Route**: `/api/contents/:id`
@@ -350,15 +251,6 @@ This section provides the details of the Content API for creating, updating and 
 }
 ```
 
-#### Response (Error - 404 Not Found):
-
-```json
-{
-  "success": false,
-  "message": "Content not found"
-}
-```
-
 ### 3. **Delete Content**
 
 - **Route**: `/api/contents/:id`
@@ -371,15 +263,6 @@ This section provides the details of the Content API for creating, updating and 
 {
   "success": true,
   "message": "Content deleted successfully"
-}
-```
-
-#### Response (Error - 403 Forbidden):
-
-```json
-{
-  "success": false,
-  "message": "Access denied"
 }
 ```
 
