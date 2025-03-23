@@ -22,7 +22,7 @@ app.use(helmet());
 // Rate limiting middleware
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
+  max: 250, // Limit each IP to 100 requests per window
   handler: (_req, res) => {
     res.status(429).json({
       success: false,
